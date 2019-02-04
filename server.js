@@ -1,6 +1,12 @@
 const express = require('express')
 const mongoose  = require('mongoose')
+const dotenv = require('dotenv')
 const app = express()
+
+//config local variables
+dotenv.config()
+
+//port
 const port = process.env.PORT || 5000 
 
 //@routes
@@ -10,7 +16,7 @@ const stories = require('./routers/stories')
 
 //@connect monogo
 mongoose
-    .connect('mongodb://connect:shymaSane1@ds159634.mlab.com:59634/connect',  { useNewUrlParser: true })
+    .connect(process.env.DB_URI,  { useNewUrlParser: true })
     .then(() => console.log('mongoose connected'))
     .catch((err) => console.log('mongoose didnt connect err:' + err))
 
