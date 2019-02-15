@@ -1,13 +1,14 @@
+//config local variables
+require('dotenv').config()
+
 const express = require('express')
+const logger = require('morgan')
 const mongoose  = require('mongoose')
-const dotenv = require('dotenv')
 const app = express()
 
-//config local variables
-dotenv.config()
+const environment = process.env.NODE_ENV 
+const stage = require('./config')[environment]
 
-//port
-const port = process.env.PORT || 5000 
 
 //@routes
 const users = require('./routers/users')
@@ -30,6 +31,6 @@ app.use('/api/profiles', profiles)
 app.use('/api/stories', stories)
 
 
-app.listen(port, () => {
-    console.log(`server working on port: ${port}`)
+app.listen(`${stage.port}`, () => {
+    console.log(`server working on port: ${stage.port}`)
 })
