@@ -11,9 +11,7 @@ const stage = require('./config')[environment]
 
 
 //@routes
-const users = require('./routers/users')
-const profiles = require('./routers/profiles')
-const stories = require('./routers/stories')
+const routes = require('./routes/index')
 
 //@connect monogo
 mongoose
@@ -26,9 +24,9 @@ app.get('/', (req, res) => {
 })
 
 //@using routes
-app.use('/api/users', users)
-app.use('/api/profiles', profiles)
-app.use('/api/stories', stories)
+app.use('/api/users', routes.users)
+app.use('/api/profiles', routes.profiles)
+app.use('/api/stories', routes.stories)
 
 
 app.listen(`${stage.port}`, () => {
