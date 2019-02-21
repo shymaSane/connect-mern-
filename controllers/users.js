@@ -35,15 +35,16 @@ module.exports={
         })
     },
     login: (req, res) => {
-        
+        let result = {}
+        let status = 202; //accepted
         //fetch user
         mongoose
         .connect(process.env.DB_URI,  { useCreateIndex: true, useNewUrlParser: true })
         .then(() => {
             //contains email and passwrod
             const {email, password} = req.body
-            let result = {email, password};
-            let status = 202; //accepted
+            result.value = {email, password};
+            result.status; //accepted
             User.findOne({email})
             .then((user) => {
                 //if the user is there do sth
