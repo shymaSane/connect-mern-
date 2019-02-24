@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt')
 module.exports={
     add: (req,res) =>{
         mongoose
-        .connect(process.env.DB_URI,  { useCreateIndex: true, useNewUrlParser: true })
+        .connect('mongodb://127.0.0.1:27017/node-jwt',  { useCreateIndex: true, useNewUrlParser: true })
         .then(() => {
             let result = {};
             let status = 201; //created
@@ -40,7 +40,7 @@ module.exports={
         let status = 200; 
         //connect to mongoose
         mongoose
-        .connect(process.env.DB_URI,  { useCreateIndex: true, useNewUrlParser: true })
+        .connect('mongodb://127.0.0.1:27017/node-jwt',  { useCreateIndex: true, useNewUrlParser: true })
         .then(() => {
             //contains email and passwrod
             const {email, password} = req.body
@@ -96,5 +96,9 @@ module.exports={
 
             res.status(status).send(result)
         })
+    },
+    getAll: (req, res) => {
+        //to get all users
+        
     }
 }
