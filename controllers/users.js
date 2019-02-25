@@ -70,7 +70,36 @@ module.exports = {
         
     },
     login: (req, res) => {
-
+        //find user by email
+        const{email, password} = req.body;
+        let status = 200;
+        let result = {};
+        User.findOne({email})
+            .then(user => {
+                if(user){
+                    //there is user now match passwords
+                    bcrypt.compare(password, user.password)
+                        .then((res) =>{
+                            if(res){
+                                //if password is matched
+                            } else {
+                                //password isnt matched
+                                status = 409;//conflict
+                                result.erorr = "password isnt matched";
+                                result.status = status;
+                                res.status(status).send(result)
+                            } 
+                        })
+                        .catch(err => {
+                            //server erorr
+                        })
+                }else{
+                    //no user 401 not authinticated
+                }
+            })
+            .catch((err) =>{
+                //server erorr
+            })
     },
     signout: (req, res) => {
 
