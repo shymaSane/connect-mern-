@@ -6,8 +6,8 @@ const userController = require('../controllers/users')
 //@desc Tests routing
 //@access public
 
-router.post('/test', userController.add)
-router.post('/test/v', userController.login)
+router.post('/test/signup', userController.signup)
+router.get('/test/signup', userController.signup)
 
 module.exports = router
 

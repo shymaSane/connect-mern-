@@ -2,6 +2,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const mongoose = require('mongoose');
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 
@@ -17,16 +18,14 @@ app.use(bodyParser.urlencoded({
 const environment = process.env.NODE_ENV 
 const stage = require('./config')[environment]
 
-
-
 //@routes
 const routes = require('./routes/index')
 
-//@connect monogo
-// mongoose
-//     .connect(process.env.DB_URI,  { useNewUrlParser: true })
-//     .then(() => console.log('mongoose connected'))
-//     .catch((err) => console.log('mongoose didnt connect err:' + err))
+// @connect monogo
+mongoose
+    .connect(`${process.env.DB_URI}`,  {useCreateIndex: true, useNewUrlParser: true })
+    .then(() => console.log('mongoose connected'))
+    .catch((err) => console.log('mongoose didnt connect err:' + err))
 
 app.get('/', (req, res) => {
     res.send('working')
