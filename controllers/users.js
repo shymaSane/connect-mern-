@@ -79,9 +79,22 @@ module.exports = {
                 if(user){
                     //there is user now match passwords
                     bcrypt.compare(password, user.password)
-                        .then((res) =>{
-                            if(res){
+                        .then((match) =>{
+                            if(match){
                                 //if password is matched
+                                //make json web tokens
+                                status = 200; //ok
+                                const payload = {user: user.email};
+                                const options = {expiresIn: '2d'};
+                                const secret = process.env.JWT_SECRET;
+                                //generate tokens
+                                const token = jwt.sign(payload,  secret, options)
+                                //results
+                                result.value = payload
+                                result.status = status
+                                result.value.token = token
+                                //send results
+                                res.status(status).send(result)
                             } else {
                                 //password isnt matched
                                 status = 409;//conflict
@@ -92,13 +105,25 @@ module.exports = {
                         })
                         .catch(err => {
                             //server erorr
+                            status = 500;
+                            result.erorr = `${err}`;
+                            result.status = status;
+                            res.status(status).send(result)
                         })
                 }else{
                     //no user 401 not authinticated
+                    status = 401;
+                    result.erorr = `user isnt authinticated, signup here`;
+                    result.status = status;
+                    res.status(status).send(result)
                 }
             })
             .catch((err) =>{
                 //server erorr
+                status = 500;
+                result.erorr = `${err}`;
+                result.status = status;
+                res.status(status).send(result)
             })
     },
     signout: (req, res) => {
