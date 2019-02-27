@@ -95,6 +95,7 @@ module.exports = {
                                 result.value.token = token
                                 //send results
                                 res.status(status).send(result)
+                                
                             } else {
                                 //password isnt matched
                                 status = 409;//conflict
@@ -130,6 +131,7 @@ module.exports = {
 
     },
     getAll: (req, res) => {
+        console.log(req.headers)
         User.find({})
             .then((users) =>{
                 res.status(200).send(users)
