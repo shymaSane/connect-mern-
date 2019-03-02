@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const validator = require('validator')
 
 module.exports = {
     tokenValidation: (req, res, next) => {
@@ -29,5 +30,24 @@ module.exports = {
             }
             res.status(401).send(result)
         }
+    },
+    validateForm: (req, res, next) => {
+        const {name, email, password, password2} = req.body
+        let result = {}
+        //check if email is valid
+        const validateEmail = validator.isEmail(email)
+        const validatePassword = validator.equals(password, password2)
+        
+        if(validateEmail && validatePassword === true){
+            next()
+        } else {
+            if(validateEmail === false){
+                result.email = "Unvalied email adress"
+            } if(validatePassword === false){
+                result.password = "Password isnt matching"
+            }
+            res.status(400).send(result)
+        }
+        
     }
 }

@@ -131,7 +131,7 @@ module.exports = {
 
     },
     getAll: (req, res) => {
-        console.log(req.headers)
+        console.log(req.decoded)
         User.find({})
             .then((users) =>{
                 res.status(200).send(users)
