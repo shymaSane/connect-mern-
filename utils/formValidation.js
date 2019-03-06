@@ -17,13 +17,13 @@ const signUpValidation = (req, res, next) => {
     if(!validator.isLength(name, {min: 4, max: 20})){
         erorrs.name = "name must be between 4 and 20 characters"
     }
-    //check if passwords matching
-    if(!validator.equals(password, password2)){
-        erorrs.password = "passwords are not matching, please enter your password again"
-    }
     //check if password length between 4 and 20
     if(!validator.isLength(password, {min: 4, max: 20})){
         erorrs.password = "password must be between 4 and 20 characters"
+    }
+     //check if passwords matching
+     if(!validator.equals(password, password2)){
+        erorrs.password2 = "passwords are not matching, please enter your password again"
     }
     //check if fields are empty
     if(isEmpty(name)){
@@ -43,4 +43,31 @@ const signUpValidation = (req, res, next) => {
     }
 }
 
-module.exports = {signUpValidation}
+const loginValidation = (req, res, next) => {
+    const{password, email} = req.body;
+    let erorrs = {};
+    //ckeck is email valid
+    if(!validator.isEmail(email)){
+        erorrs.email = "unvalid email adress"
+    }
+    //check if password length between 4 and 20
+    if(!validator.isLength(password, {min: 4, max: 20})){
+        erorrs.password = "password must be between 4 and 20 characters"
+    }
+    //check if its empty
+    if(isEmpty(email)){
+        erorrs.email = "Email field is required"
+    }
+    if(isEmpty(password)){
+        erorrs.password = "Password field is required"
+    }
+    //send erorr or success
+    if(Object.keys(erorrs).length === 0){
+        next()
+    } else {
+        res.status(400).send(erorrs)
+    }
+}
+
+
+module.exports = {signUpValidation, loginValidation}

@@ -11,7 +11,7 @@ const formValidation = require('../utils/formValidation')
 //@access public
 
 router.post('/test/signup', formValidation.signUpValidation, userController.signup)
-router.post('/test/login', userController.login)
+router.post('/test/login', formValidation.loginValidation, userController.login)
 router.get('/test/users', validateToken, userController.getAll)
 
 module.exports = router
