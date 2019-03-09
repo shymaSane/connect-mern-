@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 //bring salts rounds
 const environment = process.env.NODE_ENV ;
 const salt = require('../config')[environment].saltingRounds;
-console.log(User.collection.collectionName)
+
 module.exports = {
     signup: (req, res) => {
         //to make new account

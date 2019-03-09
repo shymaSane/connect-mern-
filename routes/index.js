@@ -1,8 +1,8 @@
 //@routes
-const users = require('./users')
-const profiles = require('./profiles')
-const stories = require('./stories')
+const user = require('./user')
+const profile = require('./profile')
+const story = require('./story')
 
 module.exports = {
-    users, profiles, stories
+    user, profile, story
 }

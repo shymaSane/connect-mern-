@@ -32,9 +32,9 @@ app.get('/', (req, res) => {
 })
 
 //@using routes
-app.use('/api/users', routes.users)
-app.use('/api/profiles', routes.profiles)
-app.use('/api/stories', routes.stories)
+app.use('/api/user', routes.user)
+app.use('/api/profile', routes.profile)
+app.use('/api/story', routes.story)
 
 
 app.listen(`${stage.port}`, () => {
