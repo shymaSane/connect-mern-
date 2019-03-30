@@ -1,0 +1,39 @@
+1- node use v8 engine written in c++ to interpert javascript
+2- require() is part of the global object in node, it also contains setTimeout, module, console.log ....etc (https://nodejs.org/api/globals.html)
+3- we can't require file if dosent have module.exports 
+4- ways to export:  a- module.exports = {counter, adder}
+                    b- module.exports.counter = function(){......}
+5- node event emitter: ?? need more information on this 
+6- writing and reading files: 
+    const fs = require('fs')
+    //read file before moves on to any code:
+    const readMe = fs.readFileSync(file's path, 'utf8') >>>> since we dealing with encded data 0/1 so we need to convert it to letters 
+    //write it to new file(we need to add type file path aka writeMe.txt):
+    fs.writeFileSync(new file's path, readMe(the old file))
+
+7- read and write ASYNC(we need to use callbacks):
+    fs.readFile(file's path, 'utf8', function(err, data){
+        fs.writeFile(new file's path, data)
+    })
+
+8- Create and remove directories:
+    a: SYNC
+        1- remove files: 
+            fs.unlink(file's path)
+        2- make and reomve directories:
+            fs.mkdirSync('directory's path')
+            //to remove it :
+            fs.rmdirSync('directory's path')
+    b: ASYNC
+        fs.mkdir('file's name', function(){
+            fs.readFile('file's path', 'utf8', function(err, data){
+                fs.writeFile('new file's path', data)
+            })
+        })
+
+9- TCP protocol
+
+10- Streams and buffers:
+    a- buffer: refers to space in memory which is used to store data temporarily. In Node.js Buffers are used when dealing with file streams or tcp streams which are mainly octets of binary data.
+
+    b- streams: Streams are channels on which data can be sent or from which data can be received. Technically it means that we can have readable streams, writeable streams or duplex streams which can be used for both reading and writing. In some cases we can pipe data of one stream to other. 
