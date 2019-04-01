@@ -1,22 +1,34 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
+//name, bio, websites, rules, lcation, profile picture
 const ProfileSchema = new Schema({
   user_id: {
       //refrence the model name 
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      //refrences collection name 
+      ref: 'users'
   },
-  title: {
+  handle: {
     type: String,
     required: true,
-    unique: true,
-    trim: true
+    maxlength: 40
   },
-  story_text: {
+  bio: {
     type: String,
-    required: true,
-  }
+  },
+  rules: {
+    type: String,
+  },
+  website: {
+    type: String
+  },
+  profile_image:{
+    type: String
+  },
+  
+  //TODO > add stories refrence, followers and following
+  //comma sperated values
 })
 
 module.exports = mongoose.model('Profile', ProfileSchema)

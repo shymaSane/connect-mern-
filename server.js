@@ -36,7 +36,6 @@ app.use('/api/user', routes.user)
 app.use('/api/profile', routes.profile)
 app.use('/api/story', routes.story)
 
-
 app.listen(`${stage.port}`, () => {
     console.log(`server working on port: ${stage.port}`)
 })
