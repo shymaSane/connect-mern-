@@ -12,6 +12,7 @@ const ProfileSchema = new Schema({
   handle: {
     type: String,
     required: true,
+    unique: true,
     maxlength: 40
   },
   bio: {
@@ -27,7 +28,7 @@ const ProfileSchema = new Schema({
     type: String
   },
   
-  //TODO > add stories refrence, followers and following
+  //TODO > add stories refrence, followers and following 
   //comma sperated values
 })
 
