@@ -29,6 +29,10 @@ const ProfileSchema = new Schema({
   },
   
   //TODO > add stories refrence, followers and following 
+  //CSV 
+  // education: {
+  //   type: [String]
+  // }
   //comma sperated values
 })
 

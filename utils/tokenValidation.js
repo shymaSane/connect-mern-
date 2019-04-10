@@ -31,33 +31,7 @@ const validateToken = (req, res, next) => {
             res.status(401).send(result)
         }
     
-    // validateForm: (req, res, next) => {
-    //     const {name, email, password, password2} = req.body
-    //     let result = {}
-    //     //check if name isnt empty
-    //     const emptyName = validator.isEmpty(name)
-    //     //check if email is valid
-    //     const validateEmail = validator.isEmail(email)
-    //     //check if password isnt empty
-    //     const emptyPassword = validator.isEmpty(password)
-    //     const emptypassword2 = validator.isEmpty(password2)
-    //     //check if passwords if equal
-    //     const validatePassword = validator.equals(password, password2)
-        
-    //     if((validateEmail && validatePassword === true) && (emptyName && emptyPassword && emptypassword2 === false)){
-    //         next()
-    //     } else {
-    //         if(validateEmail === false){
-    //             result.email = "Unvalied email adress"
-    //         } if(validatePassword === false){
-    //             result.password = "Password isnt matching"
-    //         } if(emptyName || emptyPassword || emptypassword2 === true){
-    //             result.empty = "please fill here"
-    //         }
-    //         res.status(400).send(result)
-    //     }
-        
-    // }
+    
 }
 
 module.exports = validateToken
