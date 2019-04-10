@@ -1,9 +1,10 @@
-// const Profile = require()
+const Profile = require('../models/Profile')
 
 module.exports = {
     getProfile: (req, res) =>{
-        //take profile handle from token as user name in it
-        res.send(`${req.params.user_name}`)
+        //take user_name from token 
+        const tokenPayload = JSON.stringify(req.decoded)
+        res.send(tokenPayload)
 
     },
     editProfile: () => {
