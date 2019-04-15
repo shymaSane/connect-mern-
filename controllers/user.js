@@ -16,7 +16,7 @@ module.exports = {
             let result = {};
             //extract body
             const{name, email, password} = req.body
-            //search our modle for duplicated user
+            //search our module for duplicated user
             User.findOne({email})
                 .then(user =>{
                     if(user){
@@ -92,7 +92,7 @@ module.exports = {
                                 //results
                                 result.value = payload
                                 result.status = status
-                                result.value.token = token
+                                result.value.token = `Bearer ${token}`
                                 //send results
                                 res.status(status).send(result)
                                 

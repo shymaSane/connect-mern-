@@ -9,6 +9,7 @@ const validateToken = (req, res, next) => {
         
         //if toke is there
         if(token){
+            //to slice 'Bearer ' from it
             token = token.slice(7, token.length)
             jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
                 if(err){
