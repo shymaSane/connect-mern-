@@ -5,9 +5,9 @@ const Schema = mongoose.Schema
 const ProfileSchema = new Schema({
   user_id: {
       //refrence the model name 
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       //refrences collection name 
-      ref: 'users'
+      ref: 'User'
   },
   handle: {
     type: String,

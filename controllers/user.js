@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const Profile = require('../models/Profile')
 const bcrypt = require('bcrypt')
 
 //bring salts rounds
@@ -28,6 +28,7 @@ module.exports = {
                     }else{
                         //its a new user
                         const user = new User({name, email, password});
+                        
                         //hash password
                         bcrypt.hash(user.password, salt, (err, hash) =>{
                             if(err){
@@ -41,10 +42,23 @@ module.exports = {
                                //save user
                                 user.save()
                                     .then(() => {
-                                        status = 200
-                                        result.value = user
-                                        result.status = status
-                                        res.status(status).send(result)
+                                        //TODO: make profile
+                                        const profile = new Profile({user_id: user._id, handle: user.name})
+                                        profile.save()
+                                            .then(() => {
+                                                status = 200
+                                                result.value = user
+                                                result.pro = profile
+                                                result.status = status
+                                                res.status(status).send(result)
+                                            })
+                                            .catch((err) => {
+                                                status = 500
+                                                result.erorr = `${err}`
+                                                result.status = status
+                                                res.status(status).send(result)
+                                            })
+                                        
                                     }) 
                                     .catch((err) => {
                                         status = 500
