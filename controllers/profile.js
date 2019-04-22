@@ -4,8 +4,8 @@ const Profile = require('../models/Profile')
 module.exports = {
     getProfile: (req, res) =>{
         //take user_name from token 
-        const tokenPayload = JSON.stringify(req.decoded)
-        const user_name = JSON.parse(tokenPayload).user_name
+        // const tokenPayload = JSON.stringify(req.decoded)
+        const user_name = req.decoded.user_name
         let result = {};
         let status;
         //if user_name params is equal to user_name from token then enable edit and delete
@@ -27,12 +27,9 @@ module.exports = {
                 result.error = err
                 res.status(status).send(result)
             })
-        // if(user_name == req.params.username){
-            
-        // }
     },
-    editProfile: () => { 
-
+    editProfile: (req, res) => { 
+        
     },
     deleteProfile: () =>{
 
