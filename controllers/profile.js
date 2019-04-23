@@ -28,8 +28,8 @@ module.exports = {
                 res.status(status).send(result)
             })
     },
-    editProfile: (req, res) => { 
-        
+    editProfile: (req, res) => {
+        res.send('you can edit')
     },
     deleteProfile: () =>{
 
