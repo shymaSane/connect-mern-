@@ -17,12 +17,14 @@ const ProfileSchema = new Schema({
   },
   bio: {
     type: String,
+    maxlength: 5000
   },
   rules: {
     type: String,
+    maxlength: 5000
   },
   website: {
-    type: String
+    type: [String]
   },
   profile_image:{
     type: String
