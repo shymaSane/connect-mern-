@@ -28,8 +28,19 @@ module.exports = {
                 res.status(status).send(result)
             })
     },
-    editProfile: (req, res) => {
-        res.send('you can edit')
+    getEditProfile: (req, res) => {
+        //find the user and send information to the form 
+        const handle = req.handle
+        Profile.findOne({handle})
+            .then((profile) => {
+                res.status(200).send({profile})
+            })
+            .catch((err) =>{
+                res.status(500).send(err)
+            })
+    },
+    postEditProfile: (req, res) =>{
+
     },
     deleteProfile: () =>{
 

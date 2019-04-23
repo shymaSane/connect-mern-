@@ -21,7 +21,12 @@ router.get('/:username', tokenValidation, profileController.getProfile)
 //@desc edit profile
 //@access owner
 
-router.get('/:username/edit', tokenValidation, isOwner, profileController.editProfile)
+router.get('/:username/edit', tokenValidation, isOwner, profileController.getEditProfile)
+
+//@route GET api/profile/username/edit
+//@desc edit profile
+//@access owner
+router.post('/:username/edit', tokenValidation, isOwner, )
 
 module.exports = router
 

@@ -98,7 +98,7 @@ module.exports = {
                                 //if password is matched
                                 //make json web tokens
                                 status = 200; //ok
-                                const payload = {user: user.name};
+                                const payload = {user_name: user.name};
                                 const options = {expiresIn: '2d'};
                                 const secret = process.env.JWT_SECRET;
                                 //generate tokens
