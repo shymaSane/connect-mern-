@@ -32,14 +32,22 @@ module.exports = {
         //find the user and send information to the form 
         const handle = req.handle
         Profile.findOne({handle})
+            .exec()
             .then((profile) => {
+                //TODO: add user information(email && password)
                 res.status(200).send({profile})
             })
             .catch((err) =>{
                 res.status(500).send(err)
             })
     },
-    postEditProfile: (req, res) =>{
+    putEditProfile: (req, res) =>{
+        //TODO: picture, password, email
+        // websites is a comma sperated values
+        const{bio, rules, websites} = req.body
+        if(bio == "" && rules == "" && websites == ""){
+            res.redirect(`/api/profile/:username`)
+        }
 
     },
     deleteProfile: () =>{

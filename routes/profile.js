@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const tokenValidation = require('../utils/tokenValidation')
 const profileController = require('../controllers/profile')
+const profileFormValidation = require('../utils/profileFormValidation')
 //*****************************************************************
 //********** NOTE:
 //While import is indeed part of ES6, it is unfortunately not yet supported in NodeJS by default, and has only very recently landed support in browsers.
@@ -24,13 +25,15 @@ router.get('/:username', tokenValidation, profileController.getProfile)
 router.get('/:username/edit', tokenValidation, isOwner, profileController.getEditProfile)
 
 //@route GET api/profile/username/edit
-//@desc edit profile
+//@desc update profile
 //@access owner
-router.post('/:username/edit', tokenValidation, isOwner, )
+router.put('/:username/edit', tokenValidation, isOwner, profileController.putEditProfile)
+
+
 
 module.exports = router
 
 
 //user experince >>>
 //when signup route to profile/username/edit and make profile for new user 
-//when click name and route to user check if it same user then allow edit else 
+//when click name and route to user check if it same user then allow edit else  

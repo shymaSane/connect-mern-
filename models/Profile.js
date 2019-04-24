@@ -23,7 +23,7 @@ const ProfileSchema = new Schema({
     type: String,
     maxlength: 5000
   },
-  website: {
+  websites: {
     type: [String]
   },
   profile_image:{
