@@ -43,11 +43,27 @@ module.exports = {
     },
     putEditProfile: (req, res) =>{
         //TODO: picture, password, email
+        //TODO: do not upload empty, undefined, null fields
         // websites is a comma sperated values
-        const{bio, rules, websites} = req.body
-        if(bio == "" && rules == "" && websites == ""){
-            res.redirect(`/api/profile/:username`)
-        }
+        let{bio, rules, websites} = req.body
+
+        websites = websites.split(',')
+        //if we didnt user object then we have to use res.json
+        let result = {};
+        const handle = req.params.username
+        Profile.findOneAndUpdate({handle}, 
+            {$set:{bio, rules, websites}},
+            {new: true}
+            )
+            .exec()
+            .then((profile) => {
+                result.value = profile;
+                res.status(200).send(result)
+                
+            })
+            .catch((err) =>{
+                res.status(500).send(err)
+            })
 
     },
     deleteProfile: () =>{

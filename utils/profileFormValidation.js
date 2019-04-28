@@ -1,4 +1,4 @@
-// //validate prfoile
+//validate prfoile
 // module.exports = (req, res, next) => {
 //     const{bio, rules, websites} = req.body
 //     console.log(bio, rules, websites)
