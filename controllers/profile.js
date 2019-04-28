@@ -45,10 +45,10 @@ module.exports = {
         //TODO: picture, password, email
         //TODO: do not upload empty, undefined, null fields
         // websites is a comma sperated values
-        let{bio, rules, websites} = req.body
-
-        websites = websites.split(',')
-        //if we didnt user object then we have to use res.json
+        let{bio, rules, websites} = res.locals.profileUpdate
+        //websites is comma sperated values
+        if(websites.length != 0){ websites = websites.split(',')}
+               //if we didnt user object then we have to use res.json
         let result = {};
         const handle = req.params.username
         Profile.findOneAndUpdate({handle}, 

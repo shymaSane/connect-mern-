@@ -27,7 +27,7 @@ router.get('/:username/edit', tokenValidation, isOwner, profileController.getEdi
 //@route GET api/profile/username/edit
 //@desc update profile
 //@access owner
-router.put('/:username/edit', tokenValidation, isOwner, profileController.putEditProfile)
+router.put('/:username/edit', tokenValidation, isOwner, profileFormValidation, profileController.putEditProfile)
 
 
 
