@@ -66,7 +66,27 @@ module.exports = {
             })
 
     },
-    deleteProfile: () =>{
-
+    deleteProfileAndUser: (req, res) =>{
+        const handle = req.params.username
+        let result = {};
+        //delete profile
+        Profile.findOneAndDelete({handle})
+            .exec()
+            .then((profile) => {
+                result.profile = profile
+            })
+            .catch((err) =>{
+                res.status(500).send(err)
+            })
+        //delete user
+        User.findOneAndDelete({name: handle})
+            .exec()
+            .then((user) => {
+                result.user = user
+                res.status(200).send(result)
+            })
+            .catch((err) =>{
+                res.status(500).send(err)
+            })
     }
 }
