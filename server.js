@@ -28,7 +28,7 @@ mongoose
     .catch((err) => console.log('mongoose didnt connect err:' + err))
 
 app.get('/', (req, res) => {
-    res.send('working')
+    res.send('home')
 })
 
 //@using routes
