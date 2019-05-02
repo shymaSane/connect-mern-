@@ -52,7 +52,7 @@ module.exports = (req, res, next) => {
     }
 
     //send errors or next
-    if(Object.keys(errors) === 0) {
+    if(Object.keys(errors).length === 0) {
         next()
     } else {
         res.status(400).send(errors)
