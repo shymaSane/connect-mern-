@@ -22,11 +22,13 @@ module.exports = {
         })
         .catch((err) => {
             res.status(500).send(err)
+
         })
     },
     addStory: (req, res) => {
         //TODO: add new stry to db
         //need validation
+        // const {title, body, genere, tags, likes, comments, date }
     },
     getEditStory: (req, res) => {
         //TODO: fetch exists story

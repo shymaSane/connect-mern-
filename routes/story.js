@@ -3,6 +3,7 @@ const router = express.Router();
 const storyController = require('../controllers/story');
 const tokenValidation = require('../utils/tokenValidation')
 const isOwner = require('../utils/isOwner')
+const storyValidation = require('../utils/storyValidation')
 
 //@route GET api/story/:id
 //@desc show stories
@@ -14,7 +15,7 @@ router.get('/:id', tokenValidation, storyController.getStory)
 //@desc make new story
 //@access owner
 
-router.get('/new', tokenValidation, isOwner, (req, res) => {
+router.get('/new', tokenValidation, (req, res) => {
     res.status(200).send('new story form')
 })
 
@@ -22,7 +23,7 @@ router.get('/new', tokenValidation, isOwner, (req, res) => {
 //@desc spost story to DB
 //@access owner
 
-router.post('/new', tokenValidation, isOwner, storyController.addStory)
+router.post('/new', tokenValidation, storyValidation, storyController.addStory)
 
 //@route GET api/story/:id/edit
 //@desc edit story form

@@ -16,7 +16,7 @@ const StorySchema = new Schema({
         maxlength: 100
     },
     //body
-    body: {
+    story_body: {
         type: String,
         required: true,
     },
