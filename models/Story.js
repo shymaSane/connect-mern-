@@ -39,24 +39,6 @@ const StorySchema = new Schema({
             }
         }
     ],
-    //comments(user_is, text)
-    comments: [
-        {
-            user_id: {
-                type: Schema.Types.ObjectId,
-                ref: "User"
-            },
-            text: {
-                type: String,
-                required: true,
-                maxlength: 5000
-            },
-            date: {
-                type: Date,
-                default: Date.now
-            }
-        }
-    ],
     //date
     date: {
         type: Date,

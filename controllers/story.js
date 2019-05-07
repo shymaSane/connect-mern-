@@ -28,7 +28,12 @@ module.exports = {
     addStory: (req, res) => {
         //TODO: add new stry to db
         //need validation
-        // const {title, body, genere, tags, likes, comments, date }
+        let {title, body, genere, tags, likes, comments, date } = req.body;
+        let result = {};
+        let status = 200;
+
+        res.status(200).send(req.body)
+
     },
     getEditStory: (req, res) => {
         //TODO: fetch exists story
