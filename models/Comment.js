@@ -3,7 +3,7 @@ let Schema = mongoose.Schema
 
 //comment schema
 
-const commentSchema = new Schema({
+const CommentSchema = new Schema({
      comments: [
         {
             story_id: {
@@ -35,3 +35,5 @@ const commentSchema = new Schema({
         }
     ]
 })
+
+module.exports = mongoose.model('Comment', CommentSchema)
