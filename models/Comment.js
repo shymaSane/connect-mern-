@@ -4,6 +4,7 @@ let Schema = mongoose.Schema
 //comment schema
 
 const CommentSchema = new Schema({
+    //TODO: fix threaded comments problem
      comments: [
         {
             story_id: {
@@ -23,7 +24,9 @@ const CommentSchema = new Schema({
                 type: Date,
                 default: Date.now
             },
-            replies: [this],
+            //to make threaded comments
+            parents: [String],
+            
             upvotes: [{
                 type: Schema.Types.ObjectId,
                 ref: "User"
