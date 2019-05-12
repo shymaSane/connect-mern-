@@ -7,6 +7,7 @@ module.exports = {
         const story_id = req.params.id;
         let result = {};
         let status = 200;
+        //TODO: populate comments
         Story.findOne({_id: story_id})
         .exec()
         .then((story) => {
@@ -26,14 +27,23 @@ module.exports = {
         })
     },
     addStory: (req, res) => {
-        //TODO: add new stry to db
-        //need validation
-        let {title, body, genere, tags, likes, comments, date } = req.body;
+        let {title, story_body, genere, tags} = req.body;
         let result = {};
         let status = 200;
-
-        res.status(200).send(req.body)
-
+        //CSV
+        tags = tags.split(',')
+        genere = genere.split(',')
+        //save in DB
+        //TODO: it saves more than one when click more times
+        let newStory = new Story({title, story_body, genere, tags})
+        newStory.save()
+            .then(() => {
+                result.story = newStory
+                res.status(status).send(result)
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            })
     },
     getEditStory: (req, res) => {
         //TODO: fetch exists story

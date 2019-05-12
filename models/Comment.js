@@ -25,7 +25,7 @@ const CommentSchema = new Schema({
                 default: Date.now
             },
             //to make threaded comments
-            parents: [String],
+            replies: [this],
             
             upvotes: [{
                 type: Schema.Types.ObjectId,
@@ -40,3 +40,6 @@ const CommentSchema = new Schema({
 })
 
 module.exports = mongoose.model('Comment', CommentSchema)
+
+
+//retrive comments 

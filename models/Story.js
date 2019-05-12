@@ -31,14 +31,10 @@ const StorySchema = new Schema({
         required: true
     },
     //likes(user_id)
-    likes: [
-        {
-            user_id: {
-                type: Schema.Types.ObjectId,
-                ref: "User"
-            }
-        }
-    ],
+    likes: [{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+    }],
     //date
     date: {
         type: Date,

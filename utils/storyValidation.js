@@ -43,13 +43,14 @@ module.exports = (req, res, next) => {
     }
 
     //comments validation
-    if(!isEmpty(comments)){
-        comments.forEach((comment) => {
-            if(isEmpty(comment.text)){
-                errors.comment = "comment is empty, please enter your comment"
-            }
-        })
-    }
+    //TODO: comments validation
+    // if(!isEmpty(comments)){
+    //     comments.forEach((comment) => {
+    //         if(isEmpty(comment.text)){
+    //             errors.comment = "comment is empty, please enter your comment"
+    //         }
+    //     })
+    // }
 
     //send errors or next
     if(Object.keys(errors).length === 0) {
