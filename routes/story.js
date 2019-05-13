@@ -19,11 +19,17 @@ router.get('/new', tokenValidation, (req, res) => {
     res.status(200).send('new story form')
 })
 
-//@route GET api/story/new
-//@desc spost story to DB
+//@route POST api/story/new
+//@desc post story to DB
 //@access owner
 
 router.post('/new', tokenValidation, storyValidation, storyController.addStory)
+
+//@route POST api/story/comment
+//@desc POST comment
+//@access user
+
+router.post('/comment', storyController.postComment)
 
 //@route GET api/story/:id/edit
 //@desc edit story form
@@ -31,13 +37,13 @@ router.post('/new', tokenValidation, storyValidation, storyController.addStory)
 
 router.get('/:id/edit', storyController.getEditStory)
 
-//@route GET api/story/:id/edit
+//@route PUT api/story/:id/edit
 //@desc update story
 //@access owner
 
 router.put('/:id/edit', storyController.editStory)
 
-//@route GET api/story/:id
+//@route DELETE api/story/:id
 //@desc delete story
 //@access owner
 

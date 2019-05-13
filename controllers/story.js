@@ -4,6 +4,7 @@ const User = require('../models/User')
 module.exports = {
     getStory: (req, res) => {
         //TODO: add delete and edit button for owners
+        console.log(req.decoded)
         const story_id = req.params.id;
         let result = {};
         let status = 200;
@@ -27,6 +28,7 @@ module.exports = {
         })
     },
     addStory: (req, res) => {
+       
         let {title, story_body, genere, tags} = req.body;
         let result = {};
         let status = 200;
@@ -44,6 +46,9 @@ module.exports = {
             .catch((err) => {
                 res.status(500).send(err)
             })
+    },
+    postComment: (req, res) => {
+
     },
     getEditStory: (req, res) => {
         //TODO: fetch exists story
