@@ -4,7 +4,6 @@ const User = require('../models/User')
 module.exports = {
     getStory: (req, res) => {
         //TODO: add delete and edit button for owners
-        console.log(req.decoded)
         const story_id = req.params.id;
         let result = {};
         let status = 200;
@@ -28,7 +27,7 @@ module.exports = {
         })
     },
     addStory: (req, res) => {
-       
+        const user_id = req.decoded.user_id
         let {title, story_body, genere, tags} = req.body;
         let result = {};
         let status = 200;
@@ -37,7 +36,8 @@ module.exports = {
         genere = genere.split(',')
         //save in DB
         //TODO: it saves more than one when click more times
-        let newStory = new Story({title, story_body, genere, tags})
+        console.log(req.decoded)
+        let newStory = new Story({user_id, title, story_body, genere, tags})
         newStory.save()
             .then(() => {
                 result.story = newStory
