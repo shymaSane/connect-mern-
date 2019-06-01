@@ -10,22 +10,24 @@ module.exports = {
         let status = 200;
         //TODO: populate comments
         Story.findOne({_id: story_id})
-        .exec()
-        .then((story) => {
-            if(story){
-                result.value = story;
-                status = 200
-                res.status(status).send(result)
-            } else {
-                result.error = "Not found"
-                status = 404
-                res.status(status).send(result)
-            }
-        })
-        .catch((err) => {
-            res.status(500).send(err)
+            .populate({path: ' user_id', select: 'name'})
+            // .exec()
+            .then((story) => {
+                if(story){
+                    result.value = story;
+                    // result.user = story.user_id.name
+                    status = 200
+                    res.status(status).send(result)
+                } else {
+                    result.error = "Not found"
+                    status = 404
+                    res.status(status).send(result)
+                }
+            })
+            .catch((err) => {
+                res.status(500).send(err)
 
-        })
+            })
     },
     addStory: (req, res) => {
         const user_id = req.decoded.user_id
