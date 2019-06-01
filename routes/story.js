@@ -23,13 +23,13 @@ router.get('/new', tokenValidation, (req, res) => {
 //@desc post story to DB
 //@access owner
 
-router.post('/new', tokenValidation, storyValidation, storyController.addStory)
+ router.post('/new', tokenValidation, storyValidation, storyController.addStory)
 
-//@route POST api/story/comment
+//@route POST api/story/:id
 //@desc POST comment
 //@access user
 
-router.post('/comment', storyController.postComment)
+router.post('/:id', tokenValidation, storyController.postComment)
 
 //@route GET api/story/:id/edit
 //@desc edit story form

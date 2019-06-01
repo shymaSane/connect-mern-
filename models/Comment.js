@@ -18,7 +18,7 @@ const CommentSchema = new Schema({
             text: {
                 type: String,
                 required: true,
-                maxlength: 5000
+                maxlength: 2000
             },
             date: {
                 type: Date,

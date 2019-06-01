@@ -1,5 +1,6 @@
 const Story = require('../models/Story');
-const User = require('../models/User')
+const User = require('../models/User');
+const Comment = require('../models/Comment')
 
 module.exports = {
     getStory: (req, res) => {
@@ -36,7 +37,6 @@ module.exports = {
         genere = genere.split(',')
         //save in DB
         //TODO: it saves more than one when click more times
-        console.log(req.decoded)
         let newStory = new Story({user_id, title, story_body, genere, tags})
         newStory.save()
             .then(() => {
@@ -48,7 +48,25 @@ module.exports = {
             })
     },
     postComment: (req, res) => {
-
+        //TODO: upvotes and downvotes, text validation
+        const{text} = req.body;
+        const story_id = req.params.id
+        const user_id = req.decoded.user_id
+        let result = {};
+        //store comment in Comment schema:
+        let newComment = new Comment({
+                comments: {
+                    text, story_id, user_id
+                }
+        })
+        newComment.save()
+            .then(() => {
+                result.comment = newComment;
+                res.status(200).send(result)
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            })
     },
     getEditStory: (req, res) => {
         //TODO: fetch exists story
