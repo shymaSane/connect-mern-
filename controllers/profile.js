@@ -47,7 +47,7 @@ module.exports = {
         let{bio, rules, websites} = res.locals.profileUpdate
         //websites is comma sperated values
         if(websites.length != 0){ websites = websites.split(',')}
-               //if we didnt user object then we have to use res.json
+               //if we didnt use object then we have to use res.json
         let result = {};
         const handle = req.params.username
         Profile.findOneAndUpdate({handle}, 

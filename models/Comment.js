@@ -7,7 +7,7 @@ const CommentSchema = new Schema({
     //TODO: fix threaded comments problem
      comments: [
         {
-            story_id: {
+            story: {
                 type: Schema.Types.ObjectId,
                 ref: "Story"
             },

@@ -86,6 +86,7 @@ module.exports = {
     login: (req, res) => {
         //find user by email
         const{email, password} = req.body;
+        console.log(req.body)
         let status = 200;
         let result = {};
         User.findOne({email})

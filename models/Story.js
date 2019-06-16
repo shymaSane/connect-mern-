@@ -39,8 +39,12 @@ const StorySchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
     //TODO: Link parts together
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
 })
 
 module.exports = mongoose.model('Story', StorySchema)

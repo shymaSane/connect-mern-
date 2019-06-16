@@ -10,8 +10,8 @@ module.exports = {
         let status = 200;
         //TODO: populate comments
         Story.findOne({_id: story_id})
-            .populate({path: ' user_id', select: 'name'})
-            // .exec()
+            .populate('comments')
+            .exec()
             .then((story) => {
                 if(story){
                     result.value = story;
@@ -32,6 +32,7 @@ module.exports = {
     addStory: (req, res) => {
         const user_id = req.decoded.user_id
         let {title, story_body, genere, tags} = req.body;
+        console.log(req.body)
         let result = {};
         let status = 200;
         //CSV
@@ -63,8 +64,16 @@ module.exports = {
         })
         newComment.save()
             .then(() => {
-                result.comment = newComment;
-                res.status(200).send(result)
+                //update comments id in story schema
+                Story.findOneAndUpdate({_id: story_id}, {comments: newComment._id}, {new: true})
+                    .then(() => {
+                       result.comment = newComment
+                        res.status(200).send(result)
+                    })
+                    .catch((err) => {
+                        res.status(500).send(err)
+                    })
+                
             })
             .catch((err) => {
                 res.status(500).send(err)
