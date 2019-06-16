@@ -13,7 +13,7 @@ const isEmpty = (value) => {
 
 module.exports = (req, res, next) => {
     //post body
-    const{title, story_body, genere, tags, comments} = req.body;
+    const{title, story_body, genere, tags} = req.body;
     let errors = {}
 
     //check if title isnt empty and length is allowed

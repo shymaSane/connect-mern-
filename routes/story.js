@@ -41,7 +41,7 @@ router.get('/:id/edit', tokenValidation, storyController.getEditStory)
 //@desc update story
 //@access owner
 
-router.put('/:id/edit', storyController.editStory)
+router.put('/:id/edit', tokenValidation, storyValidation, storyController.editStory)
 
 //@route DELETE api/story/:id
 //@desc delete story

@@ -32,7 +32,6 @@ module.exports = {
     addStory: (req, res) => {
         const user_id = req.decoded.user_id
         let {title, story_body, genere, tags} = req.body;
-        console.log(req.body)
         let result = {};
         let status = 200;
         //CSV
@@ -95,7 +94,6 @@ module.exports = {
         Story.findOne({_id: story_id})
             .then((story) => {
                 if(!story){
-                    console.log(1)
                     //if there is no such story in db
                     result.err = 'there is no story'
                     res.status(404).send(result)
@@ -117,9 +115,39 @@ module.exports = {
             })
     },
     editStory: (req, res) => {
-        //TODO: post edited story 
+        let {title, story_body, genere, tags} = req.body;
+        const story_id = req.params.id;
+
+        //CSV
+        tags = tags.split(',');
+        genere = genere.split(',');
+
+        //update story
+        let result = {};
+        Story.findByIdAndUpdate({_id: story_id}, {title, story_body, genere, tags}, {new: true})
+            .then(story => {
+                if(!story) {
+                    //if there is no such story in db
+                    result.err = 'there is no story'
+                    res.status(404).send(result)                    
+                } else{
+                    //send updated story
+                    result.story = story
+                    res.status(200).send(result)
+                } 
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            })
+
     },
     deleteStory: (req, res) => {
+
+    },
+    editComment: (req, res) => {
+
+    },
+    deleteComment: (req, res) => {
 
     }
 }
