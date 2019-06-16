@@ -66,9 +66,16 @@ module.exports = {
             .then(() => {
                 //update comments id in story schema
                 Story.findOneAndUpdate({_id: story_id}, {$push:{comments: newComment._id}}, {new: true})
-                    .then(() => {
-                       result.comment = newComment
-                        res.status(200).send(result)
+                    .then((story) => {
+                        if(!story){
+                            result.error = "Not found"
+                            status = 404
+                            res.status(status).send(result)
+                        } else {
+                            result.comment = newComment
+                            res.status(200).send(result)
+                        }
+                       
                     })
                     .catch((err) => {
                         res.status(500).send(err)
@@ -81,6 +88,33 @@ module.exports = {
     },
     getEditStory: (req, res) => {
         //TODO: fetch exists story
+        const user_id = req.decoded.user_id
+        const story_id = req.params.id
+        let result = {};
+        //find story
+        Story.findOne({_id: story_id})
+            .then((story) => {
+                if(!story){
+                    console.log(1)
+                    //if there is no such story in db
+                    result.err = 'there is no story'
+                    res.status(404).send(result)
+                } else {
+                    //make sure user is the owner
+                    if(story.user_id == user_id){
+                        //return story to edit
+                        result.story = story
+                        res.status(200).send(result)
+                    } else {
+                        result.err = 'Unauthorized';
+                        res.status(401).send(result)
+                    }
+                }
+
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            })
     },
     editStory: (req, res) => {
         //TODO: post edited story 

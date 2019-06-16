@@ -35,7 +35,7 @@ router.post('/:id', tokenValidation, storyController.postComment)
 //@desc edit story form
 //@access owner
 
-router.get('/:id/edit', storyController.getEditStory)
+router.get('/:id/edit', tokenValidation, storyController.getEditStory)
 
 //@route PUT api/story/:id/edit
 //@desc update story
