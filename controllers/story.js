@@ -65,7 +65,7 @@ module.exports = {
         newComment.save()
             .then(() => {
                 //update comments id in story schema
-                Story.findOneAndUpdate({_id: story_id}, {comments: newComment._id}, {new: true})
+                Story.findOneAndUpdate({_id: story_id}, {$push:{comments: newComment._id}}, {new: true})
                     .then(() => {
                        result.comment = newComment
                         res.status(200).send(result)
