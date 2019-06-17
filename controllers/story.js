@@ -162,7 +162,7 @@ module.exports = {
                         Story.findByIdAndDelete({_id: story_id})
                             .then(() => {
                                 //delete comments
-                                Comment.update({}, {$pull:{comments:{story_id}}}, {multi: true})
+                                Comment.findOneAndDelete({story_id})
                                     .then(() => {
                                         result.value = "deleted successfuly"
                                         res.status(200).send()
