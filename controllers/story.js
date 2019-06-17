@@ -61,8 +61,9 @@ module.exports = {
                     text, story_id, user_id
                 }
         })
-        newComment.save()
-            .then(() => {
+        // newComment.save()
+        Comment.findOneAndUpdate({story_id}, {$push:{comments: {text, story_id, user_id}}}, {safe: true, upsert: true, new: true})
+            .then((comment) => {
                 //update comments id in story schema
                 Story.findOneAndUpdate({_id: story_id}, {$push:{comments: newComment._id}}, {new: true})
                     .then((story) => {
@@ -71,7 +72,7 @@ module.exports = {
                             status = 404
                             res.status(status).send(result)
                         } else {
-                            result.comment = newComment
+                            result.comment = comment
                             res.status(200).send(result)
                         }
                        
@@ -142,7 +143,50 @@ module.exports = {
 
     },
     deleteStory: (req, res) => {
+        //delete story and comments related to it in db
+        const story_id = req.params.id;
+        const user_id = req.decoded.user_id;
+        let result = {};
+        //delete story
+        //note: remove returns docs while delete returns nothing
+        Story.findOne({_id: story_id})
+            .then((story) => {
+                if(!story){
+                    //if there is no such story in db
+                    result.err = 'there is no story'
+                    res.status(404).send(result)
+                } else {
+                    //make sure user is the owner
+                    if(story.user_id == user_id){
+                        //return story to edit
+                        Story.findByIdAndDelete({_id: story_id})
+                            .then(() => {
+                                //delete comments
+                                Comment.update({}, {$pull:{comments:{story_id}}}, {multi: true})
+                                    .then(() => {
+                                        result.value = "deleted successfuly"
+                                        res.status(200).send()
+                                    })
+                                    .catch((err) => {
+                                        res.status(500).send(err)
+                                    })
+                                
+                            })
+                            .catch((err) => {
+                                res.status(500).send(err)
+                            })
+                    } else {
+                        result.err = 'Unauthorized';
+                        res.status(401).send(result)
+                    }
+                }
 
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            })
+        
+          
     },
     editComment: (req, res) => {
 

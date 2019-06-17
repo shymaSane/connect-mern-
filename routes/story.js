@@ -47,6 +47,6 @@ router.put('/:id/edit', tokenValidation, storyValidation, storyController.editSt
 //@desc delete story
 //@access owner
 
-router.delete('/:id', storyController.deleteStory)
+router.delete('/:id', tokenValidation, storyController.deleteStory)
 
 module.exports = router
