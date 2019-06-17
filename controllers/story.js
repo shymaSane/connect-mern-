@@ -65,7 +65,7 @@ module.exports = {
         Comment.findOneAndUpdate({story_id}, {$push:{comments: {text, story_id, user_id}}}, {safe: true, upsert: true, new: true})
             .then((comment) => {
                 //update comments id in story schema
-                Story.findOneAndUpdate({_id: story_id}, {$push:{comments: newComment._id}}, {new: true})
+                Story.findOneAndUpdate({_id: story_id}, {$push:{comments: comment._id}}, {new: true})
                     .then((story) => {
                         if(!story){
                             result.error = "Not found"
