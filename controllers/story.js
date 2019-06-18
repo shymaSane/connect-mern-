@@ -188,9 +188,35 @@ module.exports = {
         
           
     },
-    editComment: (req, res) => {
+    getComment: (req, res) => {
+        let user_id = req.decoded.user_id;
+        let comment_id = req.params.id;
+        let result = {}
+
+        //make sure is owner 
+        Comment.findOne({comments:{$elematch:{_id: comment_id}}})
+            .then((comment) => {
+                if(comment.user_id == user_id){
+                    result.comment = comment
+                    res.status(200).send(result)
+                } else {
+                    result.err = 'Unauthorized';
+                    res.status(401).send(result)
+                }
+                
+            })
+            .catch(() => {
+                res.status(500).send(err);
+            })
+    
 
     },
+    editComment: (req, res) => {
+
+        //post edited comment
+        const {text} = req.body;
+    },
+    
     deleteComment: (req, res) => {
 
     }

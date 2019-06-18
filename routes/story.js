@@ -35,13 +35,13 @@ router.post('/:id', tokenValidation, storyController.postComment)
 //@desc edit story form
 //@access owner
 
-router.get('/:id/edit', tokenValidation, storyController.getEditStory)
+router.get('/:id/edit_story', tokenValidation, storyController.getEditStory)
 
 //@route PUT api/story/:id/edit
 //@desc update story
 //@access owner
 
-router.put('/:id/edit', tokenValidation, storyValidation, storyController.editStory)
+router.put('/:id/edit_story', tokenValidation, storyValidation, storyController.editStory)
 
 //@route DELETE api/story/:id
 //@desc delete story
@@ -49,4 +49,22 @@ router.put('/:id/edit', tokenValidation, storyValidation, storyController.editSt
 
 router.delete('/:id', tokenValidation, storyController.deleteStory)
 
+
+//@route GET api/story/:id/edit_comment
+//@desc edit comment
+//@access owner
+
+router.get('/:id/edit_comment', tokenValidation, storyController.getComment)
+
+//@route PUT api/story/:id/edit_comment
+//@desc update comment
+//@access owner
+
+router.put('/:id/edit_comment', tokenValidation,  storyController.editComment)
+
+//@route DELETE api/story/:id
+//@desc delete comment
+//@access owner
+
+router.delete('/:id/delete_comment', tokenValidation, storyController.deleteComment)
 module.exports = router
