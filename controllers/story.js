@@ -56,11 +56,11 @@ module.exports = {
         const user_id = req.decoded.user_id
         let result = {};
         //store comment in Comment schema:
-        let newComment = new Comment({
-                comments: {
-                    text, story_id, user_id
-                }
-        })
+        // let newComment = new Comment({
+        //         comments: {
+        //             text, story_id, user_id
+        //         }
+        // })
         // newComment.save()
         Comment.findOneAndUpdate({story_id}, {$push:{comments: {text, story_id, user_id}}}, {safe: true, upsert: true, new: true})
             .then((comment) => {
@@ -193,11 +193,11 @@ module.exports = {
         let story_id = req.params.id;
         let comment_id = req.params.comment_id
         let result = {}
-
         //make sure is owner 
-        Comment.findOne({comments:{$elematch:{_id: comment_id}}})
+        Comment.findOne({story_id}, {comments: {$elemMatch:{_id: comment_id}}})
             .then((comment) => {
-                if(comment.user_id == user_id){
+                console.log(comment.comments)
+                if(comment.comments[0].user_id == user_id){
                     result.comment = comment
                     res.status(200).send(result)
                 } else {
@@ -206,8 +206,9 @@ module.exports = {
                 }
                 
             })
-            .catch(() => {
-                res.status(500).send(err);
+            .catch((err) => {
+                result.err = err
+                res.status(500).send(result);
             })
     
 
