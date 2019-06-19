@@ -25,23 +25,17 @@ router.get('/new', tokenValidation, (req, res) => {
 
  router.post('/new', tokenValidation, storyValidation, storyController.addStory)
 
-//@route POST api/story/:id
-//@desc POST comment
-//@access user
-
-router.post('/:id', tokenValidation, storyController.postComment)
-
-//@route GET api/story/:id/edit
+//@route GET api/story/:id/edit_st
 //@desc edit story form
 //@access owner
 
-router.get('/:id/edit_story', tokenValidation, storyController.getEditStory)
+router.get('/:id/edit', tokenValidation, storyController.getEditStory)
 
-//@route PUT api/story/:id/edit
+//@route PUT api/story/:id/edit_story
 //@desc update story
 //@access owner
 
-router.put('/:id/edit_story', tokenValidation, storyValidation, storyController.editStory)
+router.put('/:id/edit', tokenValidation, storyValidation, storyController.editStory)
 
 //@route DELETE api/story/:id
 //@desc delete story
@@ -49,22 +43,27 @@ router.put('/:id/edit_story', tokenValidation, storyValidation, storyController.
 
 router.delete('/:id', tokenValidation, storyController.deleteStory)
 
+//@route POST api/story/:id
+//@desc POST comment
+//@access user
 
-//@route GET api/story/:id/edit_comment
+router.post('/:id', tokenValidation, storyController.postComment)
+
+//@route GET api/story/:id/:comment_id
 //@desc edit comment
 //@access owner
 
-router.get('/:id/edit_comment', tokenValidation, storyController.getComment)
+router.get('/:id/:comment_id', tokenValidation, storyController.getComment)
 
-//@route PUT api/story/:id/edit_comment
+//@route PUT api/story/:id/:comment_id
 //@desc update comment
 //@access owner
 
-router.put('/:id/edit_comment', tokenValidation,  storyController.editComment)
+router.put('/:id/:comment_id', tokenValidation,  storyController.editComment)
 
-//@route DELETE api/story/:id
+//@route DELETE api/story/:id/:comment_id
 //@desc delete comment
 //@access owner
 
-router.delete('/:id/delete_comment', tokenValidation, storyController.deleteComment)
+router.delete('/:id/:comment_id', tokenValidation, storyController.deleteComment)
 module.exports = router

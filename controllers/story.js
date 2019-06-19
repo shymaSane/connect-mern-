@@ -190,7 +190,8 @@ module.exports = {
     },
     getComment: (req, res) => {
         let user_id = req.decoded.user_id;
-        let comment_id = req.params.id;
+        let story_id = req.params.id;
+        let comment_id = req.params.comment_id
         let result = {}
 
         //make sure is owner 
