@@ -27,6 +27,9 @@ mongoose
     .then(() => console.log('mongoose connected'))
     .catch((err) => console.log('mongoose didnt connect err:' + err))
 
+mongoose.set('useFindAndModify', false);
+
+
 app.get('/', (req, res) => {
     res.send('home')
 })

@@ -217,6 +217,37 @@ module.exports = {
 
         //post edited comment
         const {text} = req.body;
+        let user_id = req.decoded.user_id;
+        let story_id = req.params.id;
+        let comment_id = req.params.comment_id;
+        let result = {};
+
+        //make sure text isnt empty
+        if (text === null ||
+        text === undefined ||
+        (typeof(text) === 'object' && Object.keys(text).lenght === 0) ||
+        (typeof(text) === 'string' && text.trim().length === 0)) {
+            result.err = 'Comment is empty. please enter comment'
+            res.status(400).send(result);
+        } else {
+            //update 
+            Comment.findOneAndUpdate({story_id, 'comments._id': comment_id}, {$set: {'comments.$.text': text}}, {new: true})
+                .then((comment) => {
+                    if(comment.comments[0].user_id == user_id){
+                        result.comment = comment
+                        res.status(200).send(result)
+                    } else {
+                        result.err = 'Unauthorized';
+                        res.status(401).send(result)
+                    }
+                    
+                })
+                .catch((err) => {
+                    result.err = err
+                    res.status(500).send(result);
+                })
+        }
+
     },
     
     deleteComment: (req, res) => {
