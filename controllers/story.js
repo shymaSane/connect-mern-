@@ -251,6 +251,20 @@ module.exports = {
     },
     
     deleteComment: (req, res) => {
+        //post edited comment
+        let user_id = req.decoded.user_id;
+        let story_id = req.params.id;
+        let comment_id = req.params.comment_id;
+        let result = {};
 
+        Comment.update({story_id}, {$pull:{comments:{_id: comment_id}}})
+            .then((comment) => {
+                result.comment = comment;
+                res.status(200).send(result)
+            })
+            .catch((err) => {
+                result.err = err
+                res.status(500).send(result);
+            })
     }
 }
